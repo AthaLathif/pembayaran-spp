@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 06:55 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: 06 Apr 2021 pada 12.13
+-- Versi Server: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -33,16 +35,18 @@ CREATE TABLE `kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data untuk tabel `kelas`
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
-(3, 'XII', 'TKJ');
+(1, 'XI', 'TKJ'),
+(2, 'XII', 'MM2'),
+(3, 'XII', 'RPL');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran`
+-- Struktur dari tabel `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -56,10 +60,18 @@ CREATE TABLE `pembayaran` (
   `jumlah_bayar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`) VALUES
+(1, 2, '27841', '2021-04-06', '', '', 4, 300000),
+(2, 1, '27840', '2021-04-07', '', '', 5, 300000);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `petugas`
+-- Struktur dari tabel `petugas`
 --
 
 CREATE TABLE `petugas` (
@@ -71,7 +83,7 @@ CREATE TABLE `petugas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `petugas`
+-- Dumping data untuk tabel `petugas`
 --
 
 INSERT INTO `petugas` (`id_petugas`, `username`, `password`, `nama_petugas`, `level`) VALUES
@@ -82,7 +94,7 @@ INSERT INTO `petugas` (`id_petugas`, `username`, `password`, `nama_petugas`, `le
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
@@ -96,37 +108,35 @@ CREATE TABLE `siswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data untuk tabel `siswa`
 --
 
 INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `id_kelas`, `alamat`, `no_telp`, `id_spp`) VALUES
 ('0024', '', 'alifian', 3, 'Bantul', '', 0),
 ('0978', '', 'atha', 3, 'giwangan', '', 0),
-('45638', '', 'rosyid', 0, 'purbayan', '', 0);
+('27845', '', 'nasaka', 0, 'piyungan', '', 0),
+('45638', '', 'rosyid', 0, 'kotagede', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spp`
+-- Struktur dari tabel `spp`
 --
 
 CREATE TABLE `spp` (
   `id_spp` int(11) NOT NULL,
-  `nisn` char(10) NOT NULL,
-  `nama` varchar(35) NOT NULL,
   `tahun` int(11) NOT NULL,
-  `bulan` varchar(35) NOT NULL,
-  `nominal` int(11) NOT NULL,
-  `tgl_bayar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `nominal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `spp`
+-- Dumping data untuk tabel `spp`
 --
 
-INSERT INTO `spp` (`id_spp`, `nisn`, `nama`, `tahun`, `bulan`, `nominal`, `tgl_bayar`) VALUES
-(3, '98734', 'nopal', 2020, 'januari', 200, '2021-04-05 16:17:31'),
-(4, '56789', 'pungkas', 2021, 'januari', 400000, '2021-04-05 16:09:16');
+INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
+(3, 2020, 200),
+(4, 2021, 400000),
+(5, 2021, 300000);
 
 --
 -- Indexes for dumped tables
@@ -171,21 +181,26 @@ ALTER TABLE `spp`
 --
 ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `spp`
 --
 ALTER TABLE `spp`
-  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
